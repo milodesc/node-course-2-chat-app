@@ -24,14 +24,13 @@ io.on('connection', (socket) => {
         console.log('Client disconnected. :(');
     });
 
-    socket.emit('newMessage', {
-        from: "pat",
-        text: "test",
-        createdAt: new Date()
-    });
-
     socket.on('createMessage', (message) => {
         console.log('create message:', message);
+        io.emit('newMessage', {
+            from: message.from,
+            text: message.text,
+            createdAt: new Date().getTime()
+        })
     });
 });
 
